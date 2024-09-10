@@ -5,202 +5,154 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import com.IFD.Utilities.SeleniumUtility;
 
 public class HomePage extends SeleniumUtility {
-	private WebDriver driver;
 
 	@FindBy(css = "img.site-logo")
-	public WebElement siteLogo;
+	private WebElement siteLogo;
 
 	@FindBy(css = "nav.main-navigation")
-	public WebElement mainNavMenu;
+	private WebElement mainNavMenu;
 
 	@FindBy(css = "input.search-bar")
-	public WebElement searchBar;
+	private WebElement searchBar;
 
 	@FindBy(css = "div.banner img")
-	public WebElement bannerImage;
+	private WebElement bannerImage;
 
 	@FindBy(css = "footer")
-	public WebElement footer;
+	private WebElement footer;
 
 	@FindBy(css = "footer .social-media-icons a")
-	public List<WebElement> socialMediaIcons;
+	private List<WebElement> socialMediaIcons;
 
 	@FindBy(css = "input#newsletter")
-	public WebElement newsletterField;
+	private WebElement newsletterField;
 
 	@FindBy(css = "button#subscribe")
-	public WebElement subscribeButton;
+	private WebElement subscribeButton;
 
 	@FindBy(linkText = "Home")
-	public WebElement homeLink;
+	private WebElement homeLink;
 
 	@FindBy(linkText = "Products")
-	public WebElement productsLink;
+	private WebElement productsLink;
 
 	@FindBy(linkText = "About Us")
-	public WebElement aboutUsLink;
+	private WebElement aboutUsLink;
 
 	@FindBy(linkText = "Contact Us")
-	public WebElement contactUsLink;
+	private WebElement contactUsLink;
 
 	@FindBy(xpath = "//section[contains(@class, 'featured-products')]")
-	public WebElement featuredProductsSection;
+	private WebElement featuredProductsSection;
 
 	@FindBy(xpath = "//section[contains(@class, 'special-offers')]")
-	public WebElement specialOffersSection;
+	private WebElement specialOffersSection;
 
 	@FindBy(xpath = "//section[contains(@class, 'latest-news')]")
-	public WebElement latestNewsSection;
+	private WebElement latestNewsSection;
 
-	public WebElement getSiteLogo() {
-		return siteLogo;
+	public HomePage(WebDriver driver) {
+		PageFactory.initElements(driver, this);
 	}
 
-	public void setSiteLogo(WebElement siteLogo) {
-		this.siteLogo = siteLogo;
+	public boolean isElementVisible(String elementName) {
+		switch (elementName) {
+		case "site logo":
+			return isElementExist(siteLogo);
+		case "main navigation menu":
+			return isElementExist(mainNavMenu);
+		case "search bar":
+			return isElementExist(searchBar);
+		case "banner image":
+			return isElementExist(bannerImage);
+		case "Featured Products section":
+			return isElementExist(featuredProductsSection);
+		case "Special Offers section":
+			return isElementExist(specialOffersSection);
+		case "footer":
+			return isElementExist(footer);
+		case "social media icons":
+			return !socialMediaIcons.isEmpty();
+		case "Subscribe to Newsletter field":
+			return isElementExist(newsletterField);
+		case "Subscribe to Newsletter button":
+			return isElementExist(subscribeButton);
+		default:
+			throw new IllegalArgumentException("Invalid element name: " + elementName);
+		}
 	}
 
-	public WebElement getMainNavMenu() {
-		return mainNavMenu;
-	}
-
-	public void setMainNavMenu(WebElement mainNavMenu) {
-		this.mainNavMenu = mainNavMenu;
-	}
-
-	public WebElement getSearchBar() {
-		return searchBar;
-	}
-
-	public void setSearchBar(WebElement searchBar) {
-		this.searchBar = searchBar;
-	}
-
-	public WebElement getBannerImage() {
-		return bannerImage;
-	}
-
-	public void setBannerImage(WebElement bannerImage) {
-		this.bannerImage = bannerImage;
-	}
-
-	public WebElement getFooter() {
-		return footer;
-	}
-
-	public void setFooter(WebElement footer) {
-		this.footer = footer;
-	}
-
-	public List<WebElement> getSocialMediaIcons() {
-		return socialMediaIcons;
-	}
-
-	public void setSocialMediaIcons(List<WebElement> socialMediaIcons) {
-		this.socialMediaIcons = socialMediaIcons;
-	}
-
-	public WebElement getNewsletterField() {
-		return newsletterField;
-	}
-
-	public void setNewsletterField(WebElement newsletterField) {
-		this.newsletterField = newsletterField;
-	}
-
-	public WebElement getSubscribeButton() {
-		return subscribeButton;
-	}
-
-	public void setSubscribeButton(WebElement subscribeButton) {
-		this.subscribeButton = subscribeButton;
-	}
-
-	public WebElement getHomeLink() {
-		return homeLink;
-	}
-
-	public void setHomeLink(WebElement homeLink) {
-		this.homeLink = homeLink;
-	}
-
-	public WebElement getProductsLink() {
-		return productsLink;
-	}
-
-	public void setProductsLink(WebElement productsLink) {
-		this.productsLink = productsLink;
-	}
-
-	public WebElement getAboutUsLink() {
-		return aboutUsLink;
-	}
-
-	public void setAboutUsLink(WebElement aboutUsLink) {
-		this.aboutUsLink = aboutUsLink;
-	}
-
-	public WebElement getContactUsLink() {
-		return contactUsLink;
-	}
-
-	public void setContactUsLink(WebElement contactUsLink) {
-		this.contactUsLink = contactUsLink;
-	}
-
-	public WebElement getFeaturedProductsSection() {
-		return featuredProductsSection;
-	}
-
-	public void setFeaturedProductsSection(WebElement featuredProductsSection) {
-		this.featuredProductsSection = featuredProductsSection;
-	}
-
-	public WebElement getSpecialOffersSection() {
-		return specialOffersSection;
-	}
-
-	public void setSpecialOffersSection(WebElement specialOffersSection) {
-		this.specialOffersSection = specialOffersSection;
-	}
-
-	public WebElement getLatestNewsSection() {
-		return latestNewsSection;
-	}
-
-	public void setLatestNewsSection(WebElement latestNewsSection) {
-		this.latestNewsSection = latestNewsSection;
-	}
-
-	public WebElement getNavLink(String linkText) {
-		switch (linkText) {
+	public void clickElement(String elementName) {
+		switch (elementName) {
+		case "site logo":
+			clickOnElement(siteLogo);
+			break;
 		case "Home":
-			return homeLink;
+			clickOnElement(homeLink);
+			break;
 		case "Products":
-			return productsLink;
+			clickOnElement(productsLink);
+			break;
 		case "About Us":
-			return aboutUsLink;
+			clickOnElement(aboutUsLink);
+			break;
 		case "Contact Us":
-			return contactUsLink;
+			clickOnElement(contactUsLink);
+			break;
 		default:
-			throw new IllegalArgumentException("Invalid link text: " + linkText);
+			throw new IllegalArgumentException("Invalid element name: " + elementName);
 		}
 	}
 
-	public WebElement getSection(String sectionName) {
-		switch (sectionName) {
-		case "Featured Products":
-			return featuredProductsSection;
-		case "Special Offers":
-			return specialOffersSection;
-		case "Latest News":
-			return latestNewsSection;
-		default:
-			throw new IllegalArgumentException("Invalid section name: " + sectionName);
+	public void enterText(String elementName, String text) {
+		if ("search bar".equals(elementName)) {
+			typeInput(searchBar, text);
+		} else {
+			throw new IllegalArgumentException("Invalid element name: " + elementName);
 		}
+	}
+
+	public void performSearch() {
+		// Trigger search; implement this method if needed
+	}
+
+	public void verifySearchResults() {
+		// Implement search results verification
+	}
+
+	public void clickFooterLink() {
+		if (!socialMediaIcons.isEmpty()) {
+			clickOnElement(socialMediaIcons.get(0)); // Click the first social media icon as an example
+		} else {
+			throw new RuntimeException("No footer links available to click.");
+		}
+	}
+
+	public void verifyRedirection(String pageName) {
+		switch (pageName) {
+		case "homepage":
+			// Implement redirection verification for homepage
+			break;
+		case "products page":
+			// Implement redirection verification for products page
+			break;
+		case "about us page":
+			// Implement redirection verification for about us page
+			break;
+		case "contact us page":
+			// Implement redirection verification for contact us page
+			break;
+		default:
+			throw new IllegalArgumentException("Invalid page name: " + pageName);
+		}
+	}
+
+	public void verifyFooterRedirection() {
+		// Implement verification for redirection from the footer
 	}
 }
